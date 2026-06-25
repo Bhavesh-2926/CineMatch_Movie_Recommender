@@ -2,6 +2,8 @@ import { useState, useEffect, useRef } from 'react';
 import { Search, Settings, Film, AlertCircle, X, Sparkles, HelpCircle } from 'lucide-react';
 import { MovieCard } from './components/MovieCard';
 
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
+
 interface Movie {
   id: number;
   title: string;
@@ -73,7 +75,7 @@ export default function App() {
   useEffect(() => {
     const fetchMovies = async () => {
       try {
-        const response = await fetch('http://127.0.0.1:8000/api/movies');
+        const response = await fetch(`${API_BASE_URL}/api/movies`);
         if (!response.ok) {
           throw new Error('Failed to load movies from backend');
         }
@@ -250,7 +252,7 @@ export default function App() {
       }
       
       try {
-        const response = await fetch('http://127.0.0.1:8000/api/recommend', {
+        const response = await fetch(`${API_BASE_URL}/api/recommend`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
