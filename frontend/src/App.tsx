@@ -59,10 +59,10 @@ export default function App() {
   
   // TMDB API Key State
   const [tmdbApiKey, setTmdbApiKey] = useState<string | null>(() => {
-    return localStorage.getItem('tmdb_api_key');
+    return import.meta.env.VITE_TMDB_API_KEY || localStorage.getItem('tmdb_api_key') || null;
   });
   const [showSettings, setShowSettings] = useState<boolean>(false);
-  const [settingsKeyInput, setSettingsKeyInput] = useState<string>(tmdbApiKey || '');
+  const [settingsKeyInput, setSettingsKeyInput] = useState<string>('');
 
   // Autocomplete navigation state
   const [activeSuggestionIdx, setActiveSuggestionIdx] = useState<number>(-1);
@@ -314,7 +314,7 @@ export default function App() {
       setTmdbApiKey(cleanKey);
     } else {
       localStorage.removeItem('tmdb_api_key');
-      setTmdbApiKey(null);
+      setTmdbApiKey(import.meta.env.VITE_TMDB_API_KEY || null);
     }
     setShowSettings(false);
   };
@@ -342,7 +342,7 @@ export default function App() {
 
         <button
           onClick={() => {
-            setSettingsKeyInput(tmdbApiKey || '');
+            setSettingsKeyInput(localStorage.getItem('tmdb_api_key') || '');
             setShowSettings(true);
           }}
           className="btn-secondary"
