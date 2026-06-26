@@ -38,6 +38,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+@app.get("/")
+def read_root():
+    return {"status": "ok", "message": "CineMatch Movie Recommender API is running!"}
+
 class RecommendationRequest(BaseModel):
     movie_id: Optional[int] = None
     movie_title: Optional[str] = None
